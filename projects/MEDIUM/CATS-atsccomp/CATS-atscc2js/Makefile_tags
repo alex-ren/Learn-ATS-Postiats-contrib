@@ -1,0 +1,12 @@
+
+RMF=rm -rf
+.PHONY: tags
+
+tags:
+	$(RMF) MYTAGS tags
+	cp ../../CATS-parsemit/MYTAGS ./
+	find $(PWD) ! -path "*.CATS-parsemit*" -name "*.sats" -exec patsopt --output-a MYTAGS --taggen -s {} \;
+	find $(PWD) ! -path "*.CATS-parsemit*" -name "*.dats" -exec patsopt --output-a MYTAGS --taggen -d {} \;
+	java -jar ../../../../ats-lang-tools.jar --input MYTAGS -c --output tags
+
+

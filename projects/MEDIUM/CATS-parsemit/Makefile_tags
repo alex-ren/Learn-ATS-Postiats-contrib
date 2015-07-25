@@ -1,0 +1,12 @@
+
+RMF=rm -rf
+.PHONY: tags
+
+tags:
+	$(RMF) MYTAGS tags
+	find $(PWD)/SATS/ -name "*.sats" -exec patsopt --output-a MYTAGS --taggen -s {} \;
+	find $(PWD)/DATS/ -name "*.dats" -exec patsopt --output-a MYTAGS --taggen -d {} \;
+	patsopt --output-a MYTAGS --taggen -d $(PWD)/catsparse_include_all.dats
+	patsopt --output-a MYTAGS --taggen -d $(PWD)/catsparse_mylib.dats
+	java -jar ../../../ats-lang-tools.jar --input MYTAGS -c --output tags
+
